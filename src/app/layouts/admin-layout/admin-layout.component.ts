@@ -1,5 +1,6 @@
 import { Location, PopStateEvent } from '@angular/common';
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { filter } from 'rxjs/operators';
@@ -17,9 +18,11 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
   readonly location = inject(Location);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   private lastPoppedUrl: string | undefined;
   private readonly yScrollStack: number[] = [];
+  private readonly scrollbars: PerfectScrollbar[] = [];
 
   ngOnInit(): void {
     const isWindows = navigator.platform.indexOf('Win') > -1;
@@ -48,16 +51,22 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      const elemMainPanel = this.mainPanel();
-      const elemSidebar = this.sidebarWrapper();
-      if (elemMainPanel) {
-        elemMainPanel.scrollTop = 0;
-      }
-      if (elemSidebar) {
-        elemSidebar.scrollTop = 0;
-      }
-    });
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        const elemMainPanel = this.mainPanel();
+        const elemSidebar = this.sidebarWrapper();
+        if (elemMainPanel) {
+          elemMainPanel.scrollTop = 0;
+        }
+        if (elemSidebar) {
+          elemSidebar.scrollTop = 0;
+        }
+        this.scrollbars.forEach(scrollbar => scrollbar.update());
+      });
   }
 
   ngAfterViewInit(): void {
@@ -65,15 +74,19 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       const elemMainPanel = this.mainPanel();
       const elemSidebar = this.sidebarWrapper();
       if (elemMainPanel) {
-        new PerfectScrollbar(elemMainPanel);
+        this.scrollbars.push(new PerfectScrollbar(elemMainPanel));
       }
       if (elemSidebar) {
-        new PerfectScrollbar(elemSidebar);
+        this.scrollbars.push(new PerfectScrollbar(elemSidebar));
       }
     }
 
     this.initFixedPlugin();
-    this.runOnRouteChange();
+
+    this.destroyRef.onDestroy(() => {
+      this.scrollbars.forEach(scrollbar => scrollbar.destroy());
+      this.scrollbars.length = 0;
+    });
   }
 
   private mainPanel(): HTMLElement | null {
@@ -90,13 +103,6 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
 
   isMaps(path: string): boolean {
     return path !== this.location.prepareExternalUrl(this.location.path()).slice(1);
-  }
-
-  runOnRouteChange(): void {
-    const elemMainPanel = this.mainPanel();
-    if (this.usesPerfectScrollbar() && elemMainPanel) {
-      new PerfectScrollbar(elemMainPanel).update();
-    }
   }
 
   isMac(): boolean {
