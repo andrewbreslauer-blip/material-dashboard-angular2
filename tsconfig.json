@@ -2,20 +2,22 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
-    "target": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
-    ],
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
   }
 }

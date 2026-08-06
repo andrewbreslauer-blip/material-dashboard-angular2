@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
+  imports: [DatePipe],
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrl: './footer.component.css',
 })
-export class FooterComponent implements OnInit {
-  test : Date = new Date();
-  
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class FooterComponent {
+  readonly today = new Date();
 }
