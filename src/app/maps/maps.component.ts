@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 
-declare const google: any;
-
-interface Marker {
-lat: number;
-lng: number;
-label?: string;
-draggable?: boolean;
+// Loaded at runtime from the Google Maps JS API script in index.html.
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    google?: any;
+  }
 }
+
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.css']
+  styleUrl: './maps.component.css',
 })
-export class MapsComponent implements OnInit {
+export class MapsComponent implements AfterViewInit {
+  ngAfterViewInit(): void {
+    const google = window.google;
+    if (!google) {
+      return;
+    }
 
-  constructor() { }
-
-  ngOnInit() {
-
-    var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
-    var mapOptions = {
+    const myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+    const mapOptions = {
         zoom: 13,
         center: myLatlng,
         scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
@@ -111,15 +112,8 @@ export class MapsComponent implements OnInit {
         }]
 
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        title: "Hello World!"
-    });
-
-    // To add the marker to the map, call setMap();
+    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    const marker = new google.maps.Marker({ position: myLatlng, title: 'Hello World!' });
     marker.setMap(map);
   }
-
 }

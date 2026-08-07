@@ -1,7 +1,7 @@
 /*!
 
 =========================================================
-* Material Dashboard Angular - v2.8.0
+* Material Dashboard Angular - v3.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
@@ -15,15 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-import 'hammerjs';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule);
+bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));
