@@ -90,8 +90,14 @@ export class NavbarComponent implements OnInit {
     layer.onclick = () => {
       document.body.classList.remove('nav-open');
       layer.classList.remove('visible');
+      if (this.closeLayer === layer) {
+        this.mobileMenuVisible = false;
+      }
       setTimeout(() => {
-        this.removeCloseLayer();
+        layer.remove();
+        if (this.closeLayer === layer) {
+          this.closeLayer = undefined;
+        }
         this.toggleButton?.classList.remove('toggled');
       }, 400);
     };
