@@ -32,11 +32,12 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       document.body.classList.remove('perfect-scrollbar-off');
     }
 
-    this.location.subscribe((ev: PopStateEvent) => {
+    const locationSubscription = this.location.subscribe((ev: PopStateEvent) => {
       this.lastPoppedUrl = ev.url;
     });
+    this.destroyRef.onDestroy(() => locationSubscription.unsubscribe());
 
-    this.router.events.subscribe(event => {
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
       if (event instanceof NavigationStart) {
         if (event.url !== this.lastPoppedUrl) {
           this.yScrollStack.push(window.scrollY);

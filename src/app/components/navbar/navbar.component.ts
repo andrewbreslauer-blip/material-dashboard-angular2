@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -14,6 +15,7 @@ export class NavbarComponent implements OnInit {
   readonly location = inject(Location);
   private readonly element = inject(ElementRef);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   private toggleButton: HTMLElement | undefined;
   private sidebarVisible = false;
@@ -26,11 +28,16 @@ export class NavbarComponent implements OnInit {
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0] as HTMLElement;
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.title.set(this.currentTitle());
-      this.sidebarClose();
-      this.removeCloseLayer();
-    });
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        this.title.set(this.currentTitle());
+        this.sidebarClose();
+        this.removeCloseLayer();
+      });
   }
 
   sidebarOpen(): void {
