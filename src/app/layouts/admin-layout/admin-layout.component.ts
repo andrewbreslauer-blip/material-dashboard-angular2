@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
-import * as $ from "jquery";
+import $ from "jquery";
 import { filter, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-admin-layout',
     templateUrl: './admin-layout.component.html',
     styleUrls: ['./admin-layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AdminLayoutComponent implements OnInit {

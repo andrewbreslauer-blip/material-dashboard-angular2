@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
-    "baseUrl": "",
     "types": [
       "jasmine",
       "node"
@@ -16,5 +15,8 @@
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "strictTemplates": false
+  }
 }
