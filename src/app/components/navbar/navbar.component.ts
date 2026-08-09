@@ -66,8 +66,9 @@ export class NavbarComponent implements OnInit {
         if (this.mobile_menu_visible == 1) {
             // $('html').removeClass('nav-open');
             body.classList.remove('nav-open');
-            if ($layer) {
-                $layer.remove();
+            const $existingLayer = document.querySelector('.close-layer');
+            if ($existingLayer) {
+                $existingLayer.remove();
             }
             setTimeout(function() {
                 $toggle.classList.remove('toggled');
