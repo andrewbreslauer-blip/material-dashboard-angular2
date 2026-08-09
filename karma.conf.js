@@ -12,7 +12,6 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter')
     ],
     browsers: ['ChromeHeadlessNoSandbox'],
-    browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
