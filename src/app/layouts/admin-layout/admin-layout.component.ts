@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from "jquery";
@@ -10,7 +10,7 @@ import { filter, Subscription } from 'rxjs';
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })
-export class AdminLayoutComponent implements OnInit {
+export class AdminLayoutComponent implements OnInit, AfterViewInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
@@ -45,13 +45,13 @@ export class AdminLayoutComponent implements OnInit {
                  window.scrollTo(0, 0);
          }
       });
-      this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
            elemMainPanel.scrollTop = 0;
            elemSidebar.scrollTop = 0;
       });
       if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-          let ps = new PerfectScrollbar(elemMainPanel);
-          ps = new PerfectScrollbar(elemSidebar);
+          new PerfectScrollbar(elemMainPanel);
+          new PerfectScrollbar(elemSidebar);
       }
 
       const window_width = $(window).width();
@@ -80,9 +80,6 @@ export class AdminLayoutComponent implements OnInit {
       });
 
       $('.fixed-plugin .badge').click(function(){
-          const $full_page_background = $('.full-page-background');
-
-
           $(this).siblings().removeClass('active');
           $(this).addClass('active');
 

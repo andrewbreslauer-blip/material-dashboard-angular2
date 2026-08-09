@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 declare const google: any;
 
-interface Marker {
+export interface Marker {
 lat: number;
 lng: number;
 label?: string;
