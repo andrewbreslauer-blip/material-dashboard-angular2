@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": false,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
     "module": "ES2022",

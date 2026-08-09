@@ -7,6 +7,15 @@ describe('MapsComponent', () => {
   let fixture: ComponentFixture<MapsComponent>;
 
   beforeEach(waitForAsync(() => {
+    // The Google Maps API is loaded from a script tag at runtime; stub it here.
+    (window as any).google = {
+      maps: {
+        LatLng: class { constructor(public lat: number, public lng: number) {} },
+        Map: class { setOptions() {} },
+        Marker: class { setMap() {} }
+      }
+    };
+
     TestBed.configureTestingModule({
       declarations: [ MapsComponent ]
     })
