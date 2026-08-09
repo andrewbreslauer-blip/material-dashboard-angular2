@@ -3,16 +3,14 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "esModuleInterop": true,
     "strict": false,
     "declaration": false,
-    "module": "es2020",
+    "module": "preserve",
     "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "useDefineForClassFields": false
   }
 }

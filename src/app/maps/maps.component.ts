@@ -21,8 +21,8 @@ export class MapsComponent implements OnInit {
 
   ngOnInit() {
 
-    var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
-    var mapOptions = {
+    const myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+    const mapOptions = {
         zoom: 13,
         center: myLatlng,
         scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
@@ -113,9 +113,9 @@ export class MapsComponent implements OnInit {
         }]
 
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    const map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
         position: myLatlng,
         title: "Hello World!"
     });
