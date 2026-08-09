@@ -1,4 +1,4 @@
-.mat-button.btn,.mat-raised-button.btn,.mat-raised-button.btn:not([class*=mat-elevation-z]),
+.mat-mdc-button.btn,.mat-mdc-raised-button.btn,.mat-raised-button.btn:not([class*=mat-elevation-z]),
 .btn{
   position: relative;
   padding: 12px 30px;
@@ -80,7 +80,7 @@
 
   &.btn-round {
     border-radius: $border-radius-extreme;
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
     > .mat-button-focus-overlay, .mat-button-ripple{
       border-radius: $border-radius-extreme;
     }
@@ -174,7 +174,7 @@
     }
 
 // Disabled buttons and button groups
-.mat-raised-button.btn,
+.mat-mdc-raised-button.btn,
 .input-group-btn .mat-raised-button.btn,
 .btn-group,
 .btn-group-vertical {
@@ -212,7 +212,7 @@
     @include box-shadow($bmd-shadow-2dp);
   }
 
-  .mat-raised-button.btn + .mat-raised-button.btn,
+  .mat-mdc-raised-button.btn + .mat-raised-button.btn,
   .mat-raised-button.btn,
   .mat-raised-button.btn:active,
   .btn-group {
@@ -225,7 +225,7 @@
   }
 
 }
-.btn-group > .mat-raised-button.btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .mat-raised-button.btn,
+.btn-group > .mat-mdc-raised-button.btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .mat-raised-button.btn,
 
 .btn-group > .mat-raised-button.btn:not(:first-child) .mat-button-ripple, .btn-group > .btn-group:not(:first-child) > .mat-raised-button.btn .mat-button-ripple,
 
@@ -233,25 +233,28 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-.btn-group > .mat-raised-button.btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-group:not(:last-child) > .mat-raised-button.btn,
+.btn-group > .mat-mdc-raised-button.btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-group:not(:last-child) > .mat-raised-button.btn,
 .btn-group > .mat-raised-button.btn:not(:last-child):not(.dropdown-toggle) .mat-button-ripple, .btn-group > .btn-group:not(:last-child) > .mat-raised-button.btn .mat-button-ripple,
 .btn-group > .mat-raised-button.btn:not(:last-child):not(.dropdown-toggle) .mat-button-focus-overlay, .btn-group > .btn-group:not(:last-child) > .mat-raised-button.btn .mat-button-focus-overlay {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+/*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
 .btn-no-ripple .mat-button-ripple{
   display: none;
 }
-.mat-button, .mat-icon-button {
+.mat-mdc-button, .mat-mdc-icon-button {
     background: transparent;
 }
-.mat-button:hover .mat-button-focus-overlay, .mat-stroked-button:hover .mat-button-focus-overlay{
+/*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
+.mat-mdc-button:hover .mat-button-focus-overlay, .mat-mdc-outlined-button:hover .mat-button-focus-overlay{
   opacity: 0;
   background-color: transparent!important;
 }
 button:focus {
   outline: none;
 }
-.mat-button .mat-button-ripple{
+/*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
+.mat-mdc-button .mat-button-ripple{
   border-radius: inherit;
 }
