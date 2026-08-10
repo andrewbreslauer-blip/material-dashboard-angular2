@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
@@ -9,9 +9,10 @@ import { filter, Subscription } from 'rxjs';
     selector: 'app-admin-layout',
     templateUrl: './admin-layout.component.html',
     styleUrls: ['./admin-layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class AdminLayoutComponent implements OnInit {
+export class AdminLayoutComponent implements OnInit, AfterViewInit {
   location = inject(Location);
   private router = inject(Router);
 
@@ -29,8 +30,8 @@ export class AdminLayoutComponent implements OnInit {
       } else {
           document.getElementsByTagName('body')[0].classList.remove('perfect-scrollbar-off');
       }
-      const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
-      const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
+      const elemMainPanel = document.querySelector('.main-panel') as HTMLElement;
+      const elemSidebar = document.querySelector('.sidebar .sidebar-wrapper') as HTMLElement;
 
       this.location.subscribe((ev:PopStateEvent) => {
           this.lastPoppedUrl = ev.url;
@@ -143,7 +144,7 @@ export class AdminLayoutComponent implements OnInit {
   }
   runOnRouteChange(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+      const elemMainPanel = document.querySelector('.main-panel') as HTMLElement;
       const ps = new PerfectScrollbar(elemMainPanel);
       ps.update();
     }
