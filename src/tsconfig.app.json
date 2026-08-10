@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2020",
-    "baseUrl": "",
     "types": []
   },
   "exclude": [
@@ -11,12 +10,6 @@
     "**/*.spec.ts"
   ],
   "angularCompilerOptions": {
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    },
     "strictTemplates": false
   }
 }
