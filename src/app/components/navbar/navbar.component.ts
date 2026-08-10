@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, inject } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,13 +10,18 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class NavbarComponent implements OnInit {
+    private element = inject(ElementRef);
+    private router = inject(Router);
+
     private listTitles: any[];
     location: Location;
       mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor() {
+      const location = inject(Location);
+
       this.location = location;
           this.sidebarVisible = false;
     }
