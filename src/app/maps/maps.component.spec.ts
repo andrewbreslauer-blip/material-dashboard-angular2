@@ -1,12 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapsComponent } from './maps.component';
 
 describe('MapsComponent', () => {
   let component: MapsComponent;
   let fixture: ComponentFixture<MapsComponent>;
+  let originalGoogle: unknown;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    originalGoogle = (window as unknown as { google?: unknown }).google;
+    (window as unknown as { google: unknown }).google = {
+      maps: {
+        LatLng: class {},
+        Map: class { setOptions() {} },
+        Marker: class { setMap() {} },
+        MapTypeId: { ROADMAP: 'roadmap' },
+        StyledMapType: class {},
+      },
+    };
+  });
+
+  afterEach(() => {
+    (window as unknown as { google?: unknown }).google = originalGoogle;
+  });
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MapsComponent ]
     })

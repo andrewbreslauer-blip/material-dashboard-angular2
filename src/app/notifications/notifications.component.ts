@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-declare var $: any;
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+declare let $: any;
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NotificationsComponent implements OnInit {
 
