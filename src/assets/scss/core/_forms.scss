@@ -372,66 +372,62 @@ fieldset[disabled] .form-group .form-control{
 
 
 
-.mat-form-field{
+.mat-mdc-form-field{
   display: block !important;
 }
 
+// The MDC form field defaults to the "fill" appearance, which paints a filled box behind the
+// control. The dashboard styles inputs as a plain underline (as the pre-MDC form field did),
+// so the fill and the focus overlay are made transparent and only the line ripple is kept.
+.mat-mdc-form-field{
+  .mat-mdc-text-field-wrapper{
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .mat-mdc-form-field-focus-overlay{
+    background-color: transparent;
+  }
+}
+
 .has-success{
-  .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
-  .mat-form-field-empty.mat-form-field-label{
+  .mdc-floating-label{
     color: #4caf50;
   }
-  &.mat-focused{
-    .mat-input-underline{
-      .mat-input-ripple{
-        background-color: #4caf50;
-      }
-    }
+
+  &.mat-focused .mdc-line-ripple::after{
+    border-bottom-color: #4caf50;
   }
 }
 
 .has-danger{
-  .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
-  .mat-form-field-empty.mat-form-field-label{
+  .mdc-floating-label{
     color: #f44336;
   }
-  &.mat-focused{
-    .mat-input-underline{
-      .mat-input-ripple{
-        background-color: #f44336;
-      }
-    }
-  }
-}
-.ng-invalid{
-  &.mat-focused .mat-form-field-label{
-    color: #f44336;
-  }
-}
-form .ng-valid{
-  &.mat-focused .mat-form-field-label,
-  .mat-focused .mat-form-field-label,
-  .mat-form-field-label{
-    // color: #4caf50;
-  }
-    .mat-input-underline{
-      // background-color: #4caf50;
-      height: 2px;
-      .mat-input-ripple{
-        // background-color: #4caf50;
-      }
-    }
 
+  &.mat-focused .mdc-line-ripple::after{
+    border-bottom-color: #f44336;
+  }
 }
-.mat-input-placeholder {
-    color: rgba(0, 0, 0, 0.38);
+
+.ng-invalid{
+  &.mat-focused .mdc-floating-label{
+    color: #f44336;
+  }
 }
-.mat-input-underline {
-    background-color: rgba(0, 0, 0, 0.12);
+
+.mat-mdc-input-element::placeholder{
+  color: rgba(0, 0, 0, 0.38);
 }
-.mat-focused .mat-input-placeholder {
+
+.mat-focused .mat-mdc-input-element::placeholder{
   color: $brand-primary;
 }
-.mat-input-ripple {
-    background-color: $brand-primary;
+
+.mdc-line-ripple::before{
+  border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+.mdc-line-ripple::after{
+  border-bottom-color: $brand-primary;
 }
