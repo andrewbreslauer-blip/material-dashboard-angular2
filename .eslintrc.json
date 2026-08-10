@@ -35,7 +35,8 @@
         "@typescript-eslint/no-empty-function": "warn",
         "@typescript-eslint/no-unused-vars": "warn",
         "@angular-eslint/no-empty-lifecycle-method": "warn",
-        "no-var": "warn"
+        "no-var": "warn",
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {
