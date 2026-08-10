@@ -1,4 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { RouterModule, provideRouter } from '@angular/router';
 
 import { SidebarComponent } from './sidebar.component';
 
@@ -6,9 +8,11 @@ describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidebarComponent ]
+      imports: [RouterModule],
+      declarations: [ SidebarComponent ],
+      providers: [provideRouter([])]
     })
     .compileComponents();
   }));

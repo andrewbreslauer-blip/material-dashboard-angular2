@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import * as Chartist from 'chartist';
+import { BarChart, easings, Interpolation, LineChart } from 'chartist';
 
 @Component({
     selector: 'app-dashboard',
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
               dur: 700,
               from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
               to: data.path.clone().stringify(),
-              easing: Chartist.Svg.Easing.easeOutQuint
+              easing: easings.easeOutQuint
             }
           });
         } else if(data.type === 'point') {
@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
       };
 
      const optionsDailySalesChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
+          lineSmooth: Interpolation.cardinal({
               tension: 0
           }),
           low: 0,
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
       }
 
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      var dailySalesChart = new LineChart('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
       this.startAnimationForLineChart(dailySalesChart);
 
@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
       };
 
      const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
+          lineSmooth: Interpolation.cardinal({
               tension: 0
           }),
           low: 0,
@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
       }
 
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+      var completedTasksChart = new LineChart('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
       // start animation for the Completed Tasks Chart - Line Chart
       this.startAnimationForLineChart(completedTasksChart);
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
           }
         }]
       ];
-      var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
+      var websiteViewsChart = new BarChart('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
