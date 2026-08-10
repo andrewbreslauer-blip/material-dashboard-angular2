@@ -12,10 +12,9 @@ export class DashboardComponent implements OnInit {
 
   constructor() { }
   startAnimationForLineChart(chart){
-      let seq: any, delays: any, durations: any;
-      seq = 0;
-      delays = 80;
-      durations = 500;
+      let seq: any = 0;
+      const delays = 80;
+      const durations = 500;
 
       chart.on('draw', function(data) {
         if(data.type === 'line' || data.type === 'area') {
@@ -45,11 +44,9 @@ export class DashboardComponent implements OnInit {
       seq = 0;
   };
   startAnimationForBarChart(chart){
-      let seq2: any, delays2: any, durations2: any;
-
-      seq2 = 0;
-      delays2 = 80;
-      durations2 = 500;
+      let seq2: any = 0;
+      const delays2 = 80;
+      const durations2 = 500;
       chart.on('draw', function(data) {
         if(data.type === 'bar'){
             seq2++;
@@ -86,7 +83,7 @@ export class DashboardComponent implements OnInit {
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
       }
 
-      var dailySalesChart = new LineChart('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      const dailySalesChart = new LineChart('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
       this.startAnimationForLineChart(dailySalesChart);
 
@@ -109,7 +106,7 @@ export class DashboardComponent implements OnInit {
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
       }
 
-      var completedTasksChart = new LineChart('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+      const completedTasksChart = new LineChart('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
       // start animation for the Completed Tasks Chart - Line Chart
       this.startAnimationForLineChart(completedTasksChart);
@@ -118,14 +115,14 @@ export class DashboardComponent implements OnInit {
 
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-      var datawebsiteViewsChart = {
+      const datawebsiteViewsChart = {
         labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
         series: [
           [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
 
         ]
       };
-      var optionswebsiteViewsChart = {
+      const optionswebsiteViewsChart = {
           axisX: {
               showGrid: false
           },
@@ -133,7 +130,7 @@ export class DashboardComponent implements OnInit {
           high: 1000,
           chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
       };
-      var responsiveOptions: any[] = [
+      const responsiveOptions: any[] = [
         ['screen and (max-width: 640px)', {
           seriesBarDistance: 5,
           axisX: {
@@ -143,7 +140,7 @@ export class DashboardComponent implements OnInit {
           }
         }]
       ];
-      var websiteViewsChart = new BarChart('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
+      const websiteViewsChart = new BarChart('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
