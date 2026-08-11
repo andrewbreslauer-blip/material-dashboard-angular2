@@ -2,7 +2,9 @@
 
  .tooltip-inner, .mat-mdc-tooltip .mdc-tooltip__surface {
     color: $gray !important;
+    font-size: 16px;
     line-height: 1.5em;
+    max-width: 250px;
     background: $white-color;
     border: none;
     border-radius: $border-radius-base !important;
