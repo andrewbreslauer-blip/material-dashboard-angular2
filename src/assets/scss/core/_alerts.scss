@@ -67,8 +67,12 @@
       }
     }
 
-    .mat-button.close{
+    .mat-mdc-button.close{
       min-width: auto;
+      height: auto;
+      padding: 0;
+      display: block;
+      font-size: 24px;
       line-height: .5;
         i{
           color: $white-color;
@@ -139,7 +143,7 @@
 //             position: relative;
 //         }
 //     }
-//     .mat-button.close,
+//     .mat-mdc-button.close,
 //     .close{
 //         min-width: auto;
 //         color: $white-color;
