@@ -35,7 +35,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build
-        run: npx ng build --base-href /material-dashboard-angular2/
+        run: npx ng build --configuration production --base-href /material-dashboard-angular2/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
