@@ -1,6 +1,7 @@
 .mat-mdc-button.btn,.mat-mdc-raised-button.btn,.mat-mdc-raised-button.btn:not([class*=mat-elevation-z]),
 .btn{
   position: relative;
+  height: auto;
   padding: 12px 30px;
   margin: $bmd-btn-margin-bottom 1px;
   min-width: auto;
@@ -244,7 +245,7 @@
 .mat-mdc-button, .mat-mdc-icon-button {
     background: transparent;
 }
-.mat-mdc-button:hover .mat-mdc-button-persistent-ripple, .mat-mdc-outlined-button:hover .mat-mdc-button-persistent-ripple{
+.mat-mdc-button:hover .mat-mdc-button-persistent-ripple, .mat-mdc-raised-button:hover .mat-mdc-button-persistent-ripple, .mat-mdc-outlined-button:hover .mat-mdc-button-persistent-ripple{
   opacity: 0;
   background-color: transparent!important;
 }
