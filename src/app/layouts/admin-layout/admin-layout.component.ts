@@ -1,21 +1,24 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
+import { Component, OnInit, AfterViewInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
-import * as $ from "jquery";
+import $ from "jquery";
 import { filter, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-admin-layout',
-  templateUrl: './admin-layout.component.html',
-  styleUrls: ['./admin-layout.component.scss']
+    selector: 'app-admin-layout',
+    templateUrl: './admin-layout.component.html',
+    styleUrls: ['./admin-layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
-export class AdminLayoutComponent implements OnInit {
+export class AdminLayoutComponent implements OnInit, AfterViewInit {
+  location = inject(Location);
+  private router = inject(Router);
+
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
-
-  constructor( public location: Location, private router: Router) {}
 
   ngOnInit() {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -45,19 +48,19 @@ export class AdminLayoutComponent implements OnInit {
                  window.scrollTo(0, 0);
          }
       });
-      this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
            elemMainPanel.scrollTop = 0;
            elemSidebar.scrollTop = 0;
       });
       if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-          let ps = new PerfectScrollbar(elemMainPanel);
-          ps = new PerfectScrollbar(elemSidebar);
+          new PerfectScrollbar(elemMainPanel);
+          new PerfectScrollbar(elemSidebar);
       }
 
       const window_width = $(window).width();
-      let $sidebar = $('.sidebar');
-      let $sidebar_responsive = $('body > .navbar-collapse');
-      let $sidebar_img_container = $sidebar.find('.sidebar-background');
+      const $sidebar = $('.sidebar');
+      const $sidebar_responsive = $('body > .navbar-collapse');
+      const $sidebar_img_container = $sidebar.find('.sidebar-background');
 
 
       if(window_width > 767){
@@ -80,13 +83,10 @@ export class AdminLayoutComponent implements OnInit {
       });
 
       $('.fixed-plugin .badge').click(function(){
-          let $full_page_background = $('.full-page-background');
-
-
           $(this).siblings().removeClass('active');
           $(this).addClass('active');
 
-          var new_color = $(this).data('color');
+          const new_color = $(this).data('color');
 
           if($sidebar.length !== 0){
               $sidebar.attr('data-color', new_color);
@@ -98,13 +98,13 @@ export class AdminLayoutComponent implements OnInit {
       });
 
       $('.fixed-plugin .img-holder').click(function(){
-          let $full_page_background = $('.full-page-background');
+          const $full_page_background = $('.full-page-background');
 
           $(this).parent('li').siblings().removeClass('active');
           $(this).parent('li').addClass('active');
 
 
-          var new_image = $(this).find("img").attr('src');
+          const new_image = $(this).find("img").attr('src');
 
           if($sidebar_img_container.length !=0 ){
               $sidebar_img_container.fadeOut('fast', function(){
@@ -130,7 +130,7 @@ export class AdminLayoutComponent implements OnInit {
       this.runOnRouteChange();
   }
   isMaps(path){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
+      let titlee = this.location.prepareExternalUrl(this.location.path());
       titlee = titlee.slice( 1 );
       if(path == titlee){
           return false;
